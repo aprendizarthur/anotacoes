@@ -1,0 +1,202 @@
+/*SELETORES DE TAG----------------------------------------------------------------------------*/
+h2{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: #dddddd;
+}
+
+input{
+    border-radius: 10px !important;
+}
+
+/*SELETORES DE CLASSE-------------------------------------------------------------------------*/
+.container{
+    margin-top: 35px;
+}
+
+.box-form{
+    background-color: #F6F6F6;
+    border-radius: 10px;
+}
+
+.box-panel-left{
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    border: 1px solid #F1F1F2;
+    border-collapse: collapse;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    height: 90vh;
+}
+
+.box-panel-right{
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    border-left: 1px solid #F1F1F2;
+    border-collapse: collapse;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    height: 90vh;
+    overflow-y: auto;
+}
+
+.box-panel-right::-webkit-scrollbar{
+    width: 5px;
+}
+
+.box-panel-right::-webkit-scrollbar-track{
+    background: #d1d1d1;
+}
+
+.box-panel-right::-webkit-scrollbar-thumb{
+    background-color: #98989D;
+    border-radius: 10px;
+}
+
+.box-anotacao{
+    border-radius: 8px;
+    background-color: #f7ef83;
+    color: #272727;
+    overflow-y: auto;
+    height: 35vh;
+    scroll-behavior: smooth;
+    scrollbar-color: #e7e078;
+}
+
+.box-anotacao:hover{
+    box-shadow: 0px 2px 0px 0px #30303038;
+}
+
+.box-anotacao::-webkit-scrollbar{
+    width: 5px;
+}
+
+.box-anotacao::-webkit-scrollbar-track{
+    background: #e7e078;
+    border-radius: 8px;
+}
+
+.box-anotacao::-webkit-scrollbar-thumb{
+    background-color: #b4a801;
+    border-radius: 10px;
+}
+
+.box-nova-anotacao{
+    border-radius: 10px;
+    border: solid 1px #272727;
+    background-color: #f7f7f7;
+    color: #272727;
+}
+
+.btn-primary{
+    background-color: #007BFE;
+    color: #FFFFFF;
+    border-radius: 14px;
+}
+
+.btn-logout{
+    background-color: #00000000;
+    border: none;
+    color: #FF382B;
+    cursor: pointer;
+}
+
+.btn-logout:hover{
+    text-decoration: underline !important;
+}
+
+.link-anotacao{
+    color: #272727;
+    text-decoration: none;
+}
+
+.link-anotacao:hover{
+    color: #272727;
+    text-decoration: none;
+}
+
+/*SELETORES DE ID-----------------------------------------------------------------------------*/
+#nav-panel ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#nav-panel i{
+    vertical-align: middle !important;
+    color: #272727;
+}
+
+#nav-panel li{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: solid 1px #F1F1F2;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+#nav-panel li:last-of-type{
+    border: none;
+}
+
+#nav-panel li:hover{
+    background-color: #f7f7f7;
+}
+
+#form-search input{
+    border: solid 1px #DDDDDD;
+    color: #98989D;
+}
+
+/*CLASSES P/ CORES----------------------------------------------------------------------------*/
+.blue-1{
+    color: #007BFE !important;
+}
+
+.red-1{
+    color: #FF382B !important;
+}
+
+/*MEDIAS QUERIES------------------------------------------------------------------------------*/
+@media(max-width = 628px){
+    .box-anotacao{
+        height: 30vh;
+    }
+}
+
+/*FONTES--------------------------------------------------------------------------------------*/
+.roboto-light{
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+
+.roboto-regular {
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+
+.roboto-bold {
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 750;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+
+/*PROPORÇÃO TIPOGRAFIA------------------------------------------------------------------------*/
+h1{font-size: 1.65rem;}
+h2{font-size: 1.45rem;}
+span{font-size: 1rem;}

@@ -1,0 +1,11 @@
+- layout notas
+- deixar estilos de cor da nota inline p/editar na exibicao
+- classe notas
+- classe auth notas
+- adicionar notas
+- mostrar notas
+- pesquisar notas
+- editar nota
+- excluir nota
+- adicionar atalhos de teclado para nav panel
+- dados nav lateral (nome, total notas...)

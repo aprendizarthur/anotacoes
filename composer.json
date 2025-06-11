@@ -1,0 +1,16 @@
+{
+    "name": "arthu/anotacoes",
+    "autoload": {
+        "psr-4": {
+            "app\\classes\\": "app/classes",
+            "app\\traits\\": "app/traits"
+        }
+    },
+    "authors": [
+        {
+            "name": "Arthur",
+            "email": "aprendizadoarthur@gmail.com"
+        }
+    ],
+    "require": {}
+}
