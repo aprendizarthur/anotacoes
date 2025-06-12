@@ -12,6 +12,13 @@ input{
     border-radius: 10px !important;
 }
 
+input[type="color"]{
+    background-color: #FFFFFF !important;
+    border-radius: 12px !important;
+    width: 40px;
+    float: right;
+}
+
 /*SELETORES DE CLASSE-------------------------------------------------------------------------*/
 .container{
     margin-top: 35px;
@@ -56,14 +63,42 @@ input{
     border-radius: 10px;
 }
 
+.box-panel-right-note{
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    border-left: 1px solid #F1F1F2;
+    border-collapse: collapse;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    height: 90vh;
+    overflow-y: auto;
+}
+
+.box-panel-right-note::-webkit-scrollbar{
+    width: 5px;
+}
+
+.box-panel-right-note::-webkit-scrollbar-track{
+    background: #CFC96C;
+}
+
+.box-panel-right-note::-webkit-scrollbar-thumb{
+    background-color: #b4a801;
+    border-radius: 10px;
+}
+
 .box-anotacao{
     border-radius: 8px;
-    background-color: #f7ef83;
+    /*background-color inline p/ selecionar na exibição*/
     color: #272727;
     overflow-y: auto;
-    height: 35vh;
+    max-height: 35vh;
     scroll-behavior: smooth;
     scrollbar-color: #e7e078;
+    /*quando nao cabe mais a PALAVRA no box essa propriedade a quebra, resolvendo
+    o problema de uma nota com AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA que criava
+    um scroll horizontal indesejado*/
+    overflow-wrap: break-word;
 }
 
 .box-anotacao:hover{
@@ -75,12 +110,12 @@ input{
 }
 
 .box-anotacao::-webkit-scrollbar-track{
-    background: #e7e078;
+    background: #d1d1d1;
     border-radius: 8px;
 }
 
 .box-anotacao::-webkit-scrollbar-thumb{
-    background-color: #b4a801;
+    background-color: #98989D;
     border-radius: 10px;
 }
 
@@ -93,6 +128,45 @@ input{
 
 .btn-primary{
     background-color: #007BFE;
+    color: #FFFFFF;
+    border-radius: 14px;
+}
+
+.btn-in-note-green{
+    background-color: #31C859 !important;
+    float: right;
+    color: #FFFFFF !important;
+    border-radius: 14px;
+}
+
+.btn-in-note-green:hover{
+    transition: 0.3s linear;
+    transform: scale(1.05);
+    background-color: #FFFFFF !important;
+    float: right;
+    color: #31C859!important;
+    border-radius: 14px;
+}
+
+.btn-in-note-red{
+    background-color: #FF382B !important;
+    float: left;
+    color: #FFFFFF !important;
+    border-radius: 14px;
+}
+
+.btn-in-note-red:hover{
+    transition: 0.3s linear;
+    transform: scale(1.05);
+    background-color: #FFFFFF !important;
+    float: left;
+    color: #FF382B!important;
+    border-radius: 14px;
+}
+
+.btn-in-note{
+    background-color: #007BFE;
+    float: right;
     color: #FFFFFF;
     border-radius: 14px;
 }
@@ -127,14 +201,18 @@ input{
 
 #nav-panel i{
     vertical-align: middle !important;
-    color: #272727;
+}
+
+#nav-panel i:hover{
+    transition: 0.3s linear;
+    transform: scale(1.1);
 }
 
 #nav-panel li{
     display: flex;
+    margin-bottom: 15px;
     align-items: center;
     justify-content: center;
-    border-bottom: solid 1px #F1F1F2;
     padding: 10px;
     border-radius: 4px;
 }
@@ -152,9 +230,42 @@ input{
     color: #98989D;
 }
 
+#form-note textarea{
+    color: #272727;
+    border: solid 1px #272727;
+    border-radius: 10px;
+}
+
+#form-note textarea::-webkit-scrollbar{
+    width: 5px;
+}
+
+#form-note textarea::-webkit-scrollbar-track{
+    background: #e7e078;
+    border-radius: 8px;
+}
+
+#form-note textarea::-webkit-scrollbar-thumb{
+    background-color: #b4a801;
+    border-radius: 10px;
+}
+
+#form-note input{
+    color: #272727;
+    border: solid 1px #272727;
+}
+
 /*CLASSES P/ CORES----------------------------------------------------------------------------*/
 .blue-1{
     color: #007BFE !important;
+}
+
+.black-1{
+    color: #272727 !important;
+}
+
+.green-1{
+    color: #31C859 !important;
 }
 
 .red-1{
@@ -199,4 +310,5 @@ input{
 /*PROPORÇÃO TIPOGRAFIA------------------------------------------------------------------------*/
 h1{font-size: 1.65rem;}
 h2{font-size: 1.45rem;}
+p{font-size: 1.1rem;}
 span{font-size: 1rem;}

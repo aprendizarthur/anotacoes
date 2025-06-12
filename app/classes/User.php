@@ -2,6 +2,7 @@
 namespace app\classes;
 use app\classes\Database;
 
+//classe que instancia um usuario e extende database
 class User extends Database
 {
     private string $name;
@@ -113,7 +114,7 @@ class User extends Database
             $res->bindValue(":e", $this->email);
             $res->execute();
             $resultado = $res->fetchAll(\PDO::FETCH_ASSOC);    
-        }catch(PDOException $e){
+        }catch(\PDOException $e){
             echo '<div class="col-12 text-center">'.$e->getMessage().'</div>';
         }    
             
@@ -133,7 +134,7 @@ class User extends Database
             $res->bindValue(":e", $this->email);
             $res->execute();
             $resultado = $res->fetchAll(\PDO::FETCH_ASSOC);    
-        }catch(PDOException $e){
+        }catch(\PDOException $e){
             echo '<div class="col-12 text-center">'.$e->getMessage().'</div>';
         }
         
@@ -153,7 +154,7 @@ class User extends Database
             $res->bindValue(":e", $this->email);
             $res->execute();
             $resultado = $res->fetchAll(\PDO::FETCH_ASSOC);    
-        }catch(PDOException $e){
+        }catch(\PDOException $e){
             echo '<div class="col-12 text-center">'.$e->getMessage().'</div>';
         }
         
@@ -173,7 +174,7 @@ class User extends Database
             $res->bindValue(":e", $this->email);
             $res->execute();
             $resultado = $res->fetchAll(\PDO::FETCH_ASSOC);
-        } catch(PDOException $e){
+        } catch(\PDOException $e){
             echo '<div class="col-12 text-center">'.$e->getMessage().'</div>';
         }
 
@@ -193,7 +194,7 @@ class User extends Database
             $res->bindValue(":e", $this->email);
             $res->bindValue(":s", password_hash($this->pass, PASSWORD_DEFAULT));
             $res->execute();
-        }catch(PDOException $e){
+        }catch(\PDOException $e){
             echo '<div class="col-12 text-center">'.$e->getMessage().'</div>';
         }
     }

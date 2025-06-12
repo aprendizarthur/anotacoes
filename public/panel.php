@@ -1,6 +1,6 @@
 <?php
 require("../vendor/autoload.php");
-use app\classes\{User, Auth, Database};
+use app\classes\{Note, User, Auth, Database};
 //instanciando auth (redireciona deslogados)
 $auth = new Auth;
 $auth->restringirAcessoDeslogado();
@@ -8,6 +8,9 @@ $auth->restringirAcessoDeslogado();
 //instanciando e conectando db
 $database = new Database;
 $database->connection('anotacoes');
+
+//instancia nota para exibir todas no panel
+$note = new Note();
 
 //instanciando usuario e depois fazendo logout (esperando post)
 $user = new User();
@@ -43,29 +46,65 @@ try{
 <body>
     <div class="container">
         <div class="row d-flex justify-content-center">
-            <div class="col-2 col-md-3 col-lg-2 p-3 box-panel-left">
+            <div class="col-2 col-md-1 col-lg-1 p-3 box-panel-left">
                 <!--NAV PANEL-->
                 <section id="nav-panel">
                     <nav>
                         <ul class="text-center">
-                            <li class="d-none d-md-flex"><span class="d-inline roboto-bold">Usuário</span></li>
-                            <li><a class="blue-1" href="novaAnotacao.php"><i class="fa-solid fa-plus mr-2"></i><i class="fa-solid fa-note-sticky fa-xl"></i></a></li>
-                            <li><form method="POST"><button class="btn-logout w-100" name="submit-logout" type="submit">Sair</button></form></li>
+                            <li><a class="blue-1" href="newnote.php"><i class="fa-solid fa-plus fa-xl"></i></a></li>
+                            <li><a class="black-1" href="#"> <i class="fa-solid fa-user fa-xl"></i></a></li>
+                            <li><a class="black-1" href="#"><i class="fa-solid fa-gear fa-xl"></i></a></li>
+                            <li><form method="POST"><button class="btn-logout w-100" name="submit-logout" type="submit"><i class="fa-solid fa-power-off fa-xl red-1"></i></button></button></form></li>
                         </ul>
                     </nav>
                 </section>
             </div>
     
-            <div class="col-9 col-md-8 col-lg-9 p-3 box-panel-right">
+            <div class="col-9 col-md-10 col-lg-10 p-3 box-panel-right">
                 <div class="row d-flex justify-content-around">
-                    
+                    <!--PESQUISA-->
+                    <div class="col-11 p-2">
+                        <form id="form-search" class="form" method="post">    
+                            <div class="form-group">
+                                <input class="form-group p-1 w-100 roboto-regular" placeholder=" Pesquisar anotação" type="search" name="search" id="search">
+                            </div>
+                        </form>
+                    </div>
+
+                    <?php
+                        //pegando todas notas do usuário
+                        try{
+                            $notas = $note->All();
+                        }catch(PDOException $e){
+                            echo '<div class="col-12 text-center">'.$e->getMessage().'</div>';
+                        }
+
+                        //mostrando para o usuário
+                        foreach($notas as $nota){
+                            echo '
+                             <div class="col-10 col-lg-5 mb-4 p-2 box-anotacao" style="background-color:'.$nota['cor'].';">
+                                <a class="link-anotacao" href="note.php?id='.$nota['id'].'">
+                                <article class="p-1">
+                                    <header>
+                                        <h2 class="roboto-bold my-2 ">'.$nota['titulo'].'</h2>
+                                    </header>
+                                        <p class="roboto-regular" style="white-space: pre-line;">'.$nota['conteudo'].'</p>
+                                    <footer>
+                                        <span class="roboto-light">Editado: <i>'.$nota['data_edicao'].'</i></span>
+                                    </footer>
+                                </article>
+                                </a>
+                            </div>   
+                            ';
+                        }
+                    ?>
                 </div>
             </div>
         </div>
     </div>
 
 
-    
+
     <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
