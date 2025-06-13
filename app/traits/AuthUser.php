@@ -29,7 +29,7 @@ trait AuthUser
         //nome tem no mínimo 4 caracteres
         $bool2 = mb_strlen($name) >= 4 ? true : false;
         //nome é alfanumerico (só letras e/ou números)
-        $bool3 = preg_match('/[^a-zA-Z0-9 ]/', $name) ? false : true;
+        $bool3 = preg_match('/[^a-zA-Z0-9 \p{L}]/u', $name) ? false : true;
 
         //se alguma das validações for falsa, retorna falso
         if($bool1 == false || $bool2 == false || $bool3 == false){

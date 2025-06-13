@@ -52,7 +52,8 @@ try{
                     <nav>
                         <ul class="text-center">
                             <li><a class="blue-1" href="newnote.php"><i class="fa-solid fa-plus fa-xl"></i></a></li>
-                            <li><a class="black-1" href="#"> <i class="fa-solid fa-user fa-xl"></i></a></li>
+                            <li><a class="black-1" href="search.php"><i class="fa-solid fa-magnifying-glass fa-xl"></i></a></li>
+                            <li><a class="black-1" href="edituser.php"><i class="fa-solid fa-user-pen fa-xl"></i></a></li>
                             <li><a class="black-1" href="configs.php"><i class="fa-solid fa-gear fa-xl"></i></a></li>
                             <li><form method="POST"><button class="btn-logout w-100" name="submit-logout" type="submit"><i class="fa-solid fa-power-off fa-xl red-1"></i></button></button></form></li>
                         </ul>
@@ -62,15 +63,9 @@ try{
     
             <div class="col-9 col-md-10 col-lg-10 p-3 box-panel-right">
                 <div class="row d-flex justify-content-around">
-                    <!--PESQUISA-->
                     <div class="col-11 p-2">
                         <h1 class="roboto-bold">Anotações</h1>
                         <hr>
-                        <!-- <form id="form-search" class="form" method="get">    
-                            <div class="form-group">
-                                <input class="form-group p-1 w-100 roboto-regular" placeholder=" Pesquisar anotação" type="search" name="search" id="search">
-                            </div>
-                        </form> -->
                     </div>
 
                     <?php

@@ -10,15 +10,9 @@ $database->connection('anotacoes');
 $auth = new Auth();
 $auth->restringirAcessoDeslogado();
 
-//instanciando a nota
-$note = new Note();
+//instanciando usuario
+$user = new User();
 
-//deletando a nota (esperando post)
-try {
-    $note->Update();
-} catch (Exception $e) {
-    echo '<div class="col-12 text-center">'.$e->getMessage().'</div>';
-}
 ?>
 
 <!DOCTYPE html>
@@ -58,40 +52,43 @@ try {
                 </div>
                 
                 <div class="col-9 col-md-10 col-lg-10 p-4 box-panel-right-note">
-                    <?php
-                    //excluindo a nota (esperando post)
-                    try {
-                        $note->Delete();
-                    } catch (Exception $e) {
-                        echo '<div class="col-12 text-center">'.$e->getMessage().'</div>';
-                    }
-                    //pegando dados da nota passada pelo get
-                    $dados = [];
-                    try {
-                        $dados = $note->show();
-                        $conteudo = htmlspecialchars($dados['conteudo']);
-                        echo '
-                        <section id="form-note">
-                            <form class="form roboto-regular p-3" method="POST" style="background-color: '.$dados['cor'].';">
-                            <button class="btn btn-in-note-green mb-3" name="submit" type="submit"><i class="fa-solid fa-floppy-disk fa-lg"></i></button>
-                            <button class="btn btn-in-note-red mb-3" name="submit-delete" type="submit"><i class="fa-solid fa-trash fa-lg"></i></button>   
-                                <input required value="'.$dados['cor'].'" class="p-1 mx-2 form-control roboto-bold" type="color" name="color" id="color">
-                                <hr style="clear: both;">
-                                <div class="form-group">
-                                    <input style=" background-color:'.$dados['cor'].'" required value="'.$dados['titulo'].'" class="form-control roboto-bold" type="text" name="title" id="title">
-                                </div>
-                                <div class="form-group">
-                                    <textarea style="background-color: '.$dados['cor'].'; white-space: break-spaces !important;"required spellcheck="true" class="form-control w-100" name="content" id="content" cols="30" rows="14">'.$conteudo.'</textarea>
-                                </div>
-                                <span class="roboto-regular">Última edição: <i>'.$dados['data_edicao'].'</i></span>
-                            </form>
-                        </section>
-                        ';
-                        
-                    } catch (Exception $e) {
-                        echo '<div class="col-12 text-center">'.$e->getMessage().'</div>';
-                    }
-                ?>
+                        <?php
+
+                            //atualizando dados do usuário (esperando post)
+                            try {
+                                $user->Update();
+                            } catch (\Exception $e) {
+                                echo '<div class="col-12 text-center">'.$e->getMessage().'</div>';
+                            }
+
+                            //pegando dados do usuário (id pego da session)
+                            $dados = [];
+                            try {
+                              $dados = $user->show();
+                              echo '
+                              <section id="form-user">
+                              <form class="form roboto-regular p-2" method="POST">
+                                    <h1 class="d-inline roboto-bold">Editar dados</h1>
+                                    <button class="btn btn-in-note-green mb-3" name="submit" type="submit"><i class="fa-solid fa-floppy-disk fa-lg"></i></button>
+                                        <hr style="clear: both;">
+                                        <div class="roboto-regular form-group">
+                                            <label for="name">Nome</label>
+                                            <input required class="form-control" value="'.$dados['nome'].'" autocomplete="name" type="text" name="name" id="name">
+                                        </div>
+
+                                        <div class="roboto-regular form-group">
+                                            <label for="email">E-mail</label>
+                                            <input required class="form-control" value="'.$dados['email'].'" autocomplete="email" type="text" name="email" id="email">
+                                        </div>
+                                    </form>
+                                </section>
+                                ';  
+                            } catch (Exception $e) {
+                                echo '<div class="col-12 text-center">'.$e->getMessage().'</div>';
+                            }
+                        ?>
+                    </section>
+                </div>
             </div>
         </div>
     </div>

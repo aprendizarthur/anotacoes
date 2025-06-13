@@ -17,6 +17,57 @@ class User extends Database
         
     }
 
+    //método que retorna array com dados do usuário
+    public function Show() : array{
+        $id = $_SESSION['id-usuario'];
+
+        try {
+            $PDO = Database::$PDO;
+            $res = $PDO->prepare("SELECT * FROM usuarios WHERE id = :i");
+            $res->bindValue(":i", $id);
+            $res->execute();
+            $resultado = $res->fetch(\PDO::FETCH_ASSOC);
+
+            return $resultado;
+        } catch (\PDOException $e) {
+            echo '<div class="col-12 text-center">'.$e->getMessage().'</div>';
+        }
+    }
+
+    //método que atualiza dados do usuário
+    public function Update() : void{
+        //recebendo dados do post e santizando
+        if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])){
+            $this->id = (int)htmlspecialchars($_SESSION['id-usuario']);
+            $this->name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+            $this->email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
+            
+            //validando email
+            if(!$this->AuthEmail($this->email)){
+                throw new \Exception("E-mail inválido");
+            }
+
+            //verificando se o email foi alterado, se foi envia para a 2 verificacap
+            if(!$this->verifyEmail($this->email, $this->id)){
+                //verificando se esse e-mail esta disponivel
+                if($this->VerificaDisponibilidadeEmail()){
+                    throw new \Exception("E-mail já registrado em outra conta");
+                }
+            }
+
+            //validando nome
+            if(!$this->AuthName($this->name)){
+                throw new \Exception("Nome inválido");
+            }
+            
+            //atualizando dados do usuário
+            $this->UpdateDados();
+
+            //recarregando a página com os dados alterados
+            header("Location: edituser.php");
+        }
+    }
+
     //método que realiza o registro do usuário
     public function Register() : void{
         //pegando dados do post e sanitizando
@@ -264,4 +315,33 @@ class User extends Database
         }
     }
 
+    //método privado que atualiza os dados do usuário
+    private function UpdateDados() : void{
+        try{
+            $PDO = Database::$PDO;
+            $res = $PDO->prepare("UPDATE usuarios SET nome = :n, email = :e WHERE id = :i");
+            $res->bindValue(":n", $this->name);
+            $res->bindValue(":e", $this->email);
+            $res->bindValue(":i", $this->id);
+            $res->execute();
+        }catch(\PDOException $e){
+            echo '<div class="col-12 text-center">'.$e->getMessage().'</div>';
+        }
+    }
+
+    //método que verifica se o email foi atualizado no update
+    private function verifyEmail(string $email, int $id) : bool{
+        try{
+            $PDO = Database::$PDO;
+            $res = $PDO->prepare("SELECT email FROM usuarios WHERE id = :i");
+            $res->bindValue(":i", $this->id);
+            $res->execute();
+            $resultado = $res->fetch(\PDO::FETCH_ASSOC);
+
+            $bool = $resultado['email'] === $email ? true : false;
+            return $bool;
+        }catch(\PDOException $e){
+            echo '<div class="col-12 text-center">'.$e->getMessage().'</div>';
+        }
+    }
 }

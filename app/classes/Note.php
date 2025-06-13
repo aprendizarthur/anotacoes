@@ -25,6 +25,74 @@ class Note extends Database
         return $dados;
     }
 
+    //método que retorna dados de pesquisa de anotações
+    public function Search(){
+        if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search'])){
+            echo '
+                <div class="col-11 p-2">
+                    <form id="form-search" class="form" method="post">    
+                        <div class="form-group">
+                            <input class="form-group p-2 w-100 roboto-regular" placeholder=" Pesquisar anotação" type="search" name="search" id="search">
+                        </div>
+                    </form>
+                </div>
+            ';
+
+            $pesquisa = "%".filter_input(INPUT_POST, 'search', FILTER_SANITIZE_STRING)."%";
+            
+            try {
+                $id = (int)htmlspecialchars($_SESSION['id-usuario']);
+                $PDO = Database::$PDO;
+                $res = $PDO->prepare("SELECT * FROM notas WHERE id_usuario = :u AND (titulo LIKE :i OR conteudo LIKE :i)");
+                $res->bindValue(":i", $pesquisa);
+                $res->bindValue(":u", $id);
+                $res->execute();
+                $resultado = $res->fetchAll(\PDO::FETCH_ASSOC);
+
+                if(empty($resultado)){
+                    echo '
+                        <div class="col-11 mt-2">
+                            <p class="roboto-regular">Nenhuma anotação encontrada</p>
+                        </div>
+                    ';
+                } else {
+                    foreach($resultado as $nota){
+                    echo '
+                        <div class="col-10 col-lg-5 mb-4 p-2 box-anotacao" style="background-color:'.$nota['cor'].';">
+                            <a class="link-anotacao" href="note.php?id='.$nota['id'].'">
+                                <article class="p-1">
+                                    <header>
+                                        <h2 class="roboto-bold my-2 ">'.$nota['titulo'].'</h2>
+                                    </header>
+                                        <p class="roboto-regular" style="white-space: pre-line;">'.$nota['conteudo'].'</p>
+                                    <footer>
+                                        <span class="roboto-light">Editado: <i>'.$nota['data_edicao'].'</i></span>
+                                    </footer>
+                                </article>
+                            </a>
+                        </div>   
+                        ';
+                    }
+                }
+            } catch (\PDOException $e) {
+                echo '<div class="col-12 text-center">'.$e->getMessage().'</div>';
+            }
+            
+        } else {
+            echo '
+                <div class="col-11 p-2">
+                    <form id="form-search" class="form" method="post">    
+                        <div class="form-group">
+                            <input class="form-group p-2 w-100 roboto-regular" placeholder=" Pesquisar anotação" type="search" name="search" id="search">
+                        </div>
+                    </form>
+                </div>
+            ';
+
+            //retornar notas recentes (2 por data)
+        }
+    }
+
     //método que retorna dados da nota no arquivo note.php (pegando id GET)
     public function show(){
         //pegando id do get e sanitizando

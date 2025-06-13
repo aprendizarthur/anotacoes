@@ -10,15 +10,8 @@ $database->connection('anotacoes');
 $auth = new Auth();
 $auth->restringirAcessoDeslogado();
 
-//instanciando a nota
+//instanciando note
 $note = new Note();
-
-//deletando a nota (esperando post)
-try {
-    $note->Update();
-} catch (Exception $e) {
-    echo '<div class="col-12 text-center">'.$e->getMessage().'</div>';
-}
 ?>
 
 <!DOCTYPE html>
@@ -56,45 +49,23 @@ try {
                         </nav>
                     </section>
                 </div>
-                
-                <div class="col-9 col-md-10 col-lg-10 p-4 box-panel-right-note">
-                    <?php
-                    //excluindo a nota (esperando post)
-                    try {
-                        $note->Delete();
-                    } catch (Exception $e) {
-                        echo '<div class="col-12 text-center">'.$e->getMessage().'</div>';
-                    }
-                    //pegando dados da nota passada pelo get
-                    $dados = [];
-                    try {
-                        $dados = $note->show();
-                        $conteudo = htmlspecialchars($dados['conteudo']);
-                        echo '
-                        <section id="form-note">
-                            <form class="form roboto-regular p-3" method="POST" style="background-color: '.$dados['cor'].';">
-                            <button class="btn btn-in-note-green mb-3" name="submit" type="submit"><i class="fa-solid fa-floppy-disk fa-lg"></i></button>
-                            <button class="btn btn-in-note-red mb-3" name="submit-delete" type="submit"><i class="fa-solid fa-trash fa-lg"></i></button>   
-                                <input required value="'.$dados['cor'].'" class="p-1 mx-2 form-control roboto-bold" type="color" name="color" id="color">
-                                <hr style="clear: both;">
-                                <div class="form-group">
-                                    <input style=" background-color:'.$dados['cor'].'" required value="'.$dados['titulo'].'" class="form-control roboto-bold" type="text" name="title" id="title">
-                                </div>
-                                <div class="form-group">
-                                    <textarea style="background-color: '.$dados['cor'].'; white-space: break-spaces !important;"required spellcheck="true" class="form-control w-100" name="content" id="content" cols="30" rows="14">'.$conteudo.'</textarea>
-                                </div>
-                                <span class="roboto-regular">Última edição: <i>'.$dados['data_edicao'].'</i></span>
-                            </form>
-                        </section>
-                        ';
+
+                <div class="col-9 col-md-10 col-lg-10 p-3 box-panel-right">
+                    <div class="row d-flex justify-content-around">
+                    
+
+                        <?php 
+                        try {
+                            $note->Search();
+                        }catch(PDOException $e){
+                            echo '<div class="col-12 text-center">'.$e->getMessage().'</div>';
+                        }
                         
-                    } catch (Exception $e) {
-                        echo '<div class="col-12 text-center">'.$e->getMessage().'</div>';
-                    }
-                ?>
+                        ?>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
     <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
