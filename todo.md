@@ -1,5 +1,6 @@
-- diagrama classes
 - documentar código
+- diagrama classes
+- readme
 
 aprendizados
 - usar on uptade current_timestamp() no mysqli (após editar nota)
