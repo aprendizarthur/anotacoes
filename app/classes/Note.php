@@ -55,47 +55,54 @@ class Note extends Database
 
             //enviando usuário para o panel
             header("Location: panel.php");
+            exit();
         }
     }
 
     //método que deleta uma nota
     public function Delete() : void {
         //pegando id do get
-        if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit-delete'])){
-            $this->id = (int)htmlspecialchars($_GET['id']);
-
-            //deletando a nota do db
-            $this->deletarDB($this->id);
-
-            //encaminhando usuário para o panel
-            header("Location: panel.php");
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            if(isset($_POST['submit-delete'])){
+                $this->id = (int)htmlspecialchars($_GET['id']);
+    
+                //deletando a nota do db
+                $this->deletarDB($this->id);
+    
+                //encaminhando usuário para o panel
+                header("Location: panel.php");
+                exit();
+            }
         }
     }
 
     //método que adiciona uma nota no db
     public function Add() : void{
         //esperando dados post e sanitizando
-        if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])){
-            $this->title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
-            $this->content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING);
-            $this->color = filter_input(INPUT_POST, 'color', FILTER_SANITIZE_STRING);
-            $this->idUser = htmlspecialchars($_SESSION['id-usuario']);
-
-            //validando título
-            if(!$this->AuthTitle($this->title)){
-                throw new \Exception("Título inválido (Use apenas caracteres entre a-z e 0-9)");
-            }
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            if(isset($_POST['submit'])){
+                $this->title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
+                $this->content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING);
+                $this->color = filter_input(INPUT_POST, 'color', FILTER_SANITIZE_STRING);
+                $this->idUser = htmlspecialchars($_SESSION['id-usuario']);
     
-            //validando conteúdo
-            if(!$this->AuthContent($this->content)){
-                throw new \Exception("Conteúdo inválido (Use apenas caracteres entre a-z e 0-9)");
-            }
+                //validando título
+                if(!$this->AuthTitle($this->title)){
+                    throw new \Exception("Título inválido (Use apenas caracteres entre a-z e 0-9)");
+                }
+        
+                //validando conteúdo
+                if(!$this->AuthContent($this->content)){
+                    throw new \Exception("Conteúdo inválido (Use apenas caracteres entre a-z e 0-9)");
+                }
+        
+                //adicionando nota no banco
+                $this->adicionarDB();
     
-            //adicionando nota no banco
-            $this->adicionarDB();
-
-            //redirecionando usuário ao panel
-            header("Location: panel.php");
+                //redirecionando usuário ao panel
+                header("Location: panel.php");
+                exit();
+            }
         }
     }
     

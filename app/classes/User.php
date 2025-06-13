@@ -97,12 +97,77 @@ class User extends Database
             if(session_status() === PHP_SESSION_NONE){
                 session_start();
             }
-
+            
             session_unset();
             session_destroy();
             
             header("Location: index.php");
             exit();
+        }
+    }
+    
+    //método que exclui a conta do usuário e todos os dados relacionados
+    public function DeleteAccount(){
+        if(isset($_GET['delete-account'])){
+            //pegando id do get e sanitizando
+            $id = (int)htmlspecialchars($_SESSION['id-usuario']);
+            
+            //deletando notas do usuário
+            $this->DeleteNotes(true);
+
+            //deletando a conta
+            try {
+                $PDO = Database::$PDO;
+                $res = $PDO->prepare("DELETE FROM usuarios WHERE id = :i");
+                $res->bindValue(":i", $id);
+                $res->execute();
+            } catch (\PDOException $e) {
+                echo '<div class="col-12 text-center">'.$e->getMessage().'</div>';
+            }
+
+            //limpando session
+            session_unset();
+            session_destroy();
+
+            //enviando usuário para o form de login
+            header("Location: index.php");
+            exit();
+        }
+    }
+    
+    //método que exclui todas as notas do usuário
+    public function DeleteNotes(bool $deletarconta) : void{
+        //bool deletarconta usado pois se o usuário quer deletar a conta precisa
+        //deletar as notas também, porém nao vai ter setado o get delete-notes
+        if(!$deletarconta){
+            if(isset($_GET['delete-notes'])){
+                //pegando id do get e sanitizando
+                $id = (int)htmlspecialchars($_SESSION['id-usuario']);
+                try {
+                    $PDO = Database::$PDO;
+                    $res = $PDO->prepare("DELETE FROM notas WHERE id_usuario = :i");
+                    $res->bindValue(":i", $id);
+                    $res->execute();
+                } catch (\PDOException $e) {
+                    echo '<div class="col-12 text-center">'.$e->getMessage().'</div>';
+                }
+
+                //enviando usuário para o panel
+                header("Location: panel.php");
+                exit();
+            }
+        } else {
+            if($deletarconta){
+                $id = (int)htmlspecialchars($_SESSION['id-usuario']);
+                try {
+                    $PDO = Database::$PDO;
+                    $res = $PDO->prepare("DELETE FROM notas WHERE id_usuario = :i");
+                    $res->bindValue(":i", $id);
+                    $res->execute();
+                } catch (\PDOException $e) {
+                    echo '<div class="col-12 text-center">'.$e->getMessage().'</div>';
+                }
+            }
         }
     }
 
@@ -117,12 +182,12 @@ class User extends Database
         }catch(\PDOException $e){
             echo '<div class="col-12 text-center">'.$e->getMessage().'</div>';
         }    
-            
+        
         //se não houver ninguem com este email retorna exception
         if($resultado[0]['total'] < 1){
             return false;
         }
-
+        
         return true;
     }
 
@@ -166,7 +231,7 @@ class User extends Database
         exit();
     }
 
-    //método que verifica se o email de registro já está cadastrado
+    //método privado que verifica se o email de registro já está cadastrado
     private function VerificaDisponibilidadeEmail(){
         try{
             $PDO = Database::$PDO;
@@ -198,4 +263,5 @@ class User extends Database
             echo '<div class="col-12 text-center">'.$e->getMessage().'</div>';
         }
     }
+
 }

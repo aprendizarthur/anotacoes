@@ -53,7 +53,7 @@ try{
                         <ul class="text-center">
                             <li><a class="blue-1" href="newnote.php"><i class="fa-solid fa-plus fa-xl"></i></a></li>
                             <li><a class="black-1" href="#"> <i class="fa-solid fa-user fa-xl"></i></a></li>
-                            <li><a class="black-1" href="#"><i class="fa-solid fa-gear fa-xl"></i></a></li>
+                            <li><a class="black-1" href="configs.php"><i class="fa-solid fa-gear fa-xl"></i></a></li>
                             <li><form method="POST"><button class="btn-logout w-100" name="submit-logout" type="submit"><i class="fa-solid fa-power-off fa-xl red-1"></i></button></button></form></li>
                         </ul>
                     </nav>
@@ -64,11 +64,13 @@ try{
                 <div class="row d-flex justify-content-around">
                     <!--PESQUISA-->
                     <div class="col-11 p-2">
-                        <form id="form-search" class="form" method="post">    
+                        <h1 class="roboto-bold">Anotações</h1>
+                        <hr>
+                        <!-- <form id="form-search" class="form" method="get">    
                             <div class="form-group">
                                 <input class="form-group p-1 w-100 roboto-regular" placeholder=" Pesquisar anotação" type="search" name="search" id="search">
                             </div>
-                        </form>
+                        </form> -->
                     </div>
 
                     <?php
@@ -78,24 +80,35 @@ try{
                         }catch(PDOException $e){
                             echo '<div class="col-12 text-center">'.$e->getMessage().'</div>';
                         }
-
-                        //mostrando para o usuário
-                        foreach($notas as $nota){
+                        
+                        //se nao tiver notas, exibe um atalho para a criação de notas
+                        if(empty($notas)){
                             echo '
-                             <div class="col-10 col-lg-5 mb-4 p-2 box-anotacao" style="background-color:'.$nota['cor'].';">
-                                <a class="link-anotacao" href="note.php?id='.$nota['id'].'">
-                                <article class="p-1">
-                                    <header>
-                                        <h2 class="roboto-bold my-2 ">'.$nota['titulo'].'</h2>
-                                    </header>
-                                        <p class="roboto-regular" style="white-space: pre-line;">'.$nota['conteudo'].'</p>
-                                    <footer>
-                                        <span class="roboto-light">Editado: <i>'.$nota['data_edicao'].'</i></span>
-                                    </footer>
-                                </article>
-                                </a>
-                            </div>   
+                                <div class="col-10 col-lg-4 mb-4 p-2 box-nova-anotacao">
+                                    <a class="link-anotacao w-100 h-100" href="newnote.php" style="display: flex;align-items: center; justify-content: center;">
+                                        <i class="fa-solid fa-plus fa-sm"></i><i class="ml-2 fa-solid fa-note-sticky fa-2xl"></i>
+                                    </a>
+                                </div>
                             ';
+                        } else {
+                            //mostrando as notas para o usuário
+                            foreach($notas as $nota){
+                                echo '
+                                 <div class="col-10 col-lg-5 mb-4 p-2 box-anotacao" style="background-color:'.$nota['cor'].';">
+                                    <a class="link-anotacao" href="note.php?id='.$nota['id'].'">
+                                    <article class="p-1">
+                                        <header>
+                                            <h2 class="roboto-bold my-2 ">'.$nota['titulo'].'</h2>
+                                        </header>
+                                            <p class="roboto-regular" style="white-space: pre-line;">'.$nota['conteudo'].'</p>
+                                        <footer>
+                                            <span class="roboto-light">Editado: <i>'.$nota['data_edicao'].'</i></span>
+                                        </footer>
+                                    </article>
+                                    </a>
+                                </div>   
+                                ';
+                            }
                         }
                     ?>
                 </div>

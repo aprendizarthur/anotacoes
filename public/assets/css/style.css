@@ -102,7 +102,7 @@ input[type="color"]{
 }
 
 .box-anotacao:hover{
-    box-shadow: 0px 2px 0px 0px #30303038;
+    box-shadow: 0px 2px 0px 0px #27272773;
 }
 
 .box-anotacao::-webkit-scrollbar{
@@ -120,10 +120,20 @@ input[type="color"]{
 }
 
 .box-nova-anotacao{
-    border-radius: 10px;
-    border: solid 1px #272727;
-    background-color: #f7f7f7;
-    color: #272727;
+    animation: pulsar 1.5s linear infinite;
+    border-radius: 8px;
+    /*background-color inline p/ selecionar na exibição*/
+    background-color: #DDDDDD;
+    color: #FFFFFF !important;
+    height: 35vh;
+}
+
+.box-nova-anotacao:hover{
+    box-shadow: 0px 2px 1px 0px #27272773;  
+}
+
+.box-nova-anotacao i{
+    color: #FFFFFF;
 }
 
 .btn-primary{
@@ -230,6 +240,10 @@ input[type="color"]{
     color: #98989D;
 }
 
+#form-note form{
+    border-radius: 8px !important;
+}
+
 #form-note textarea{
     color: #272727;
     border: solid 1px #272727;
@@ -253,6 +267,23 @@ input[type="color"]{
 #form-note input{
     color: #272727;
     border: solid 1px #272727;
+}
+
+#configs ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#configs ul li{
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 8px;
+    width: fit-content;
+}
+
+#configs ul li:hover{
+    background-color: #f7f7f7;
 }
 
 /*CLASSES P/ CORES----------------------------------------------------------------------------*/
@@ -279,6 +310,22 @@ input[type="color"]{
     }
 }
 
+/*KEYFRAMES (ANIMACOES)*/
+@keyframes pulsar {
+    0%{
+        transform: scale(1);
+        transform: rotate(0deg);
+    }
+
+    50%{
+        transform: scale(1.01);
+    }
+
+    100%{
+        transform: scale(1);
+        transform: rotate(0deg);
+    }
+}
 /*FONTES--------------------------------------------------------------------------------------*/
 .roboto-light{
   font-family: "Roboto", sans-serif;

@@ -1,4 +1,5 @@
-- pesquisar notas
 - editar dados usuário
+- pesquisar notas
 - adicionar atalhos de teclado para nav panel
-- excluir conta (configs)
+- diagrama classes
+- documentar código

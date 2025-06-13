@@ -10,12 +10,19 @@ $database->connection('anotacoes');
 $auth = new Auth();
 $auth->restringirAcessoDeslogado();
 
-//instanciando a nota
-$note = new Note();
-
-//deletando a nota (esperando post)
+//instanciando usuario
+$user = new User();
+//excluindo conta (esperando get)
 try {
-    $note->Update();
+    $user->DeleteAccount();
+} catch (Exception $e) {
+    echo '<div class="col-12 text-center">'.$e->getMessage().'</div>';
+}
+
+//excluindo todas notas (esperando get)
+try {
+    $bool = false;
+    $user->DeleteNotes($bool);
 } catch (Exception $e) {
     echo '<div class="col-12 text-center">'.$e->getMessage().'</div>';
 }
@@ -58,41 +65,16 @@ try {
                 </div>
                 
                 <div class="col-9 col-md-10 col-lg-10 p-4 box-panel-right-note">
-                    <?php
-                    //excluindo a nota (esperando post)
-                    try {
-                        $note->Delete();
-                    } catch (Exception $e) {
-                        echo '<div class="col-12 text-center">'.$e->getMessage().'</div>';
-                    }
-                    //pegando dados da nota passada pelo get
-                    $dados = [];
-                    try {
-                        $dados = $note->show();
-                        $conteudo = htmlspecialchars($dados['conteudo']);
-                        echo '
-                        <section id="form-note">
-                            <form class="form roboto-regular p-3" method="POST" style="background-color: '.$dados['cor'].';">
-                            <button class="btn btn-in-note-green mb-3" name="submit" type="submit"><i class="fa-solid fa-floppy-disk fa-lg"></i></button>
-                            <button class="btn btn-in-note-red mb-3" name="submit-delete" type="submit"><i class="fa-solid fa-trash fa-lg"></i></button>   
-                                <input required value="'.$dados['cor'].'" class="p-1 mx-2 form-control roboto-bold" type="color" name="color" id="color">
-                                <hr style="clear: both;">
-                                <div class="form-group">
-                                    <input style=" background-color:'.$dados['cor'].'" required value="'.$dados['titulo'].'" class="form-control roboto-bold" type="text" name="title" id="title">
-                                </div>
-                                <div class="form-group">
-                                    <textarea style="background-color: '.$dados['cor'].'; white-space: break-spaces !important;"required spellcheck="true" class="form-control w-100" name="content" id="content" cols="30" rows="14">'.$conteudo.'</textarea>
-                                </div>
-                                <span class="roboto-regular">Última edição: <i>'.$dados['data_edicao'].'</i></span>
-                            </form>
-                        </section>
-                        ';
-                        
-                    } catch (Exception $e) {
-                        echo '<div class="col-12 text-center">'.$e->getMessage().'</div>';
-                    }
-
-                ?>
+                    <section id="configs">
+                        <h1 class="roboto-bold">Configurações</h1>
+                        <hr>
+                          
+                        <ul class="roboto-relugar">
+                            <li><a class="red-1" href="configs.php?delete-notes=1"><i class="fa-solid fa-trash fa-lg mr-3"></i></i>Excluir todas anotações</a></li>
+                            <li><a class="red-1" href="configs.php?delete-account=1"><i class="fa-solid fa-user-xmark fa-lg mr-3"></i>Excluir conta</a></li>
+                        </ul>
+                    </section>
+                </div>
             </div>
         </div>
     </div>

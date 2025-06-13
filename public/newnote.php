@@ -58,7 +58,7 @@ try{
             <div class="col-9 col-md-10 col-lg-10 p-4 box-panel-right-note">
                 <section id="form-note">
                     <form class="form roboto-regular" method="POST">
-                        <h1 class="roboto-bold" style="float:left;">Nova nota</h1>
+                        <h1 class="roboto-bold" style="float:left;">Criar Anotação</h1>
                         <button class="btn btn-in-note-green mb-3" name="submit" type="submit"><i class="fa-solid fa-check fa-lg"></i></button>
                         <input required class="p-1 mx-2 form-control roboto-bold" type="color" value="#e7e078" name="color" id="color">
                         <hr style="clear: both;">
