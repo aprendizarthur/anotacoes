@@ -67,7 +67,7 @@
 </div>
 
 <div align="center">
-  <img src="images/assets/images/diagrama.jpg" style="border-radius: 20px; max-width: 80%; height: auto;">
+  <img src="public/assets/images/diagrama.jpg" style="border-radius: 20px; max-width: 80%; height: auto;">
 </div>
 
 <div align="center" style="margin-top: 20px; margin-bottom: 20px;">
@@ -75,27 +75,27 @@
 </div>
 
 <div align="center">
-  <img src="images/assets/images/panel.jpg" style="border-radius: 20px; max-width: 80%; height: auto;">
+  <img src="public/assets/images/panel.jpg" style="border-radius: 20px; max-width: 80%; height: auto;">
 </div>
 
 <div align="center">
-  <img src="images/assets/images/search.jpg" style="border-radius: 20px; max-width: 80%; height: auto;">
+  <img src="public/assets/images/search.jpg" style="border-radius: 20px; max-width: 80%; height: auto;">
 </div>
 
 <div align="center">
-  <img src="images/assets/images/note.jpg" style="border-radius: 20px; max-width: 80%; height: auto;">
+  <img src="public/assets/images/note.jpg" style="border-radius: 20px; max-width: 80%; height: auto;">
 </div>
 
 <div align="center">
-  <img src="images/assets/images/newnote.jpg" style="border-radius: 20px; height: auto;">
+  <img src="public/assets/images/newnote.jpg" style="border-radius: 20px; height: auto;">
 </div>
 
 <div align="center">
-  <img src="images/assets/images/configs.jpg" style="border-radius: 20px; height: auto;">
+  <img src="public/assets/images/configs.jpg" style="border-radius: 20px; height: auto;">
 </div>
 
 <div align="center">
-  <img src="images/assets/images/edituser.jpg" style="border-radius: 20px; height: auto;">
+  <img src="public/assets/images/edituser.jpg" style="border-radius: 20px; height: auto;">
 </div>
 
 
