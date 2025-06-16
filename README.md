@@ -48,7 +48,8 @@
 
 <ul>
   <li>Aprender a criar uma forma de enviar o conteúdo de modo mais amigável (atualmente o input de conteúdo da postagem é um text área que recebe texto puro, quero aprender a fazer algo que dê liberdade do usuário criar listas, título...)</li>
-  <li>Encapsular melhor as classes e separar responsabilidades</li>
+  <li>Encapsular melhor as classes e separar responsabilidades, como por exemplo passar todas autenticações/verificações da classe para uma trait, deixando só o CRUD na classe</li>
+  <li>Nome de métodos mais específicos</li>
 </ul>
 
 <div align="left" style="margin-top: 20px; margin-bottom: 20px;">

@@ -3,7 +3,7 @@ namespace app\classes;
 use app\classes\Database;
 
 //classe que instancia um usuario e extende database
-class User extends Database
+class User
 {
     private string $name;
     private string $email;
@@ -158,7 +158,7 @@ class User extends Database
     }
     
     //método que exclui a conta do usuário e todos os dados relacionados
-    public function DeleteAccount(){
+    public function DeleteAccount() : void{
         if(isset($_GET['delete-account'])){
             //pegando id do get e sanitizando
             $id = (int)htmlspecialchars($_SESSION['id-usuario']);
@@ -283,7 +283,7 @@ class User extends Database
     }
 
     //método privado que verifica se o email de registro já está cadastrado
-    private function VerificaDisponibilidadeEmail(){
+    private function VerificaDisponibilidadeEmail() : bool{
         try{
             $PDO = Database::$PDO;
             $res = $PDO->prepare("SELECT COUNT(*) AS total FROM usuarios WHERE email = :e");

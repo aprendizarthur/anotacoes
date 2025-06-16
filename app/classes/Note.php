@@ -3,7 +3,7 @@ namespace app\classes;
 use app\classes\Database;
 
 //classe que instancia uma nota do usuário e extende databse
-class Note extends Database
+class Note
 {
     private int $id;
     private int $idUser;
@@ -26,7 +26,7 @@ class Note extends Database
     }
 
     //método que retorna dados da nota no arquivo note.php (pegando id GET)
-    public function show(){
+    public function show() : array{
         //pegando id do get e sanitizando
         $id = $_GET['id'];
         $this->id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
@@ -107,7 +107,7 @@ class Note extends Database
     }
     
     //método privado que adiciona a nota ao DB pós validação
-    public function adicionarDB(){
+    private function adicionarDB() : void{
         try{
             $PDO = Database::$PDO;
             $res = $PDO->prepare("INSERT INTO notas (id_usuario, titulo, conteudo, cor) VALUES (:i, :t, :c, :l)");
@@ -122,7 +122,7 @@ class Note extends Database
     }
 
     //método que retorna dados de pesquisa de anotações
-    public function Search(){
+    public function Search() : void{
         if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search'])){
             echo '
                 <div class="col-11 p-2">
